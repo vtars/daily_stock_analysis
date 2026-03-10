@@ -44,6 +44,7 @@ imgkit>=1.2.0              # Markdown 转图片（需安装 wkhtmltopdf）
 fake-useragent>=1.4.0       # 随机 User-Agent 防封禁
 httpx[socks]                # HTTP 客户端 + SOCKS 代理支持（OpenAI 可选依赖）
 dingtalk-stream >= 0.24.3    # 钉钉 Stream SDK
+websockets>=12.0             # 企业微信 Stream 长连接（WebSocket）
 # 数据库
 # SQLite 是 Python 内置，无需额外安装
 
