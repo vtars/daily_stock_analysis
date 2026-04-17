@@ -12,7 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 <!-- 新条目格式：- [类型] 描述（类型取值：新功能/改进/修复/文档/测试/chore）-->
 <!-- 每条独立一行追加到本段末尾，无需分类标题，合并时冲突最小 -->
 
-- [修复] `AGENT_MAX_STEPS` 在 orchestrator 多 Agent 模式下改为作为各子 Agent 的步数上限而非硬覆盖；TechnicalAgent 等高默认值 Agent 会被封顶，低默认值 Agent 保持原值，减少不必要的 LLM 调用膨胀与配额消耗。
+- [修复] 大盘复盘链路接入 `REPORT_LANGUAGE`：`REPORT_LANGUAGE=en` 时，A 股/合并复盘的 Prompt、章节标题、模板兜底文案与通知包装标题统一改为英文，避免出现英文正文外包中文标题的问题。
+- [修复] `AGENT_MAX_STEPS` 在 orchestrator 多 Agent 模式下统一明确为“默认作为各子 Agent 的步数上限而非硬覆盖；TechnicalAgent 等高默认值 Agent 会被封顶、低默认值 Agent 保持原值；当用户主动调高（>10）时，再统一覆盖所有子 Agent 采用全局值”，同时修复用户设置 12 但 TechnicalAgent 仍以默认 6 步运行并报 "Agent exceeded max steps" 的问题（fixes #1026）
+- [修复] Specialist（Skill）Agent 失败不再中断整个分析管线，改为与 intel/risk 相同的优雅降级策略
+- [改进] Agent 超步数错误信息增加 AGENT_MAX_STEPS 调整提示，帮助用户自助排查
 - [修复] **MiniMax-M2.7 模型连接测试支持** — 修复 LLM 通道连接测试在 MiniMax-M2.7 模型下返回 "Empty response" 的问题；增加了 `max_tokens` 上限（8→256）以容纳 MiniMax 思考过程，并添加 `content_blocks` 格式解析逻辑统一处理 MiniMax 响应格式差异。
 - [修复] 移除 `HistoryItem` 与 `ReportSummary` 响应 Schema 中 `sentiment_score` 的 `ge=0/le=100` 约束（fixes #942）——历史库中存储的超范围负值或大于 100 的情绪评分不再触发 Pydantic ValidationError，历史列表与详情接口恢复正常返回。
 - [改进] 后端股票名称解析改为优先复用前端 `stocks.index.json` 全量索引并懒加载缓存；纯后端/缺失静态资源场景静默降级回 `STOCK_NAME_MAP` 与原有数据源回退链路。
@@ -39,6 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - [改进] TushareFetcher `_normalize_data` 对港股（`hk_daily`）不再对 `vol`/`amount` 做 A 股手→股、千元→元 的缩放，与 Tushare 港股字段语义一致。
 - [测试] 补充 `TushareFetcher._normalize_data` 港股与 A 股/ETF 单位处理的单元测试。
 - [新功能] 集成 Anspire Search 作为可选语义搜索后端; 配置 `ANSPIRE_*` 可使用Anspire Search获取实时行情及新闻资讯，未配置时行为与此前一致。Anspire Search请使用 `tests/test_anspire_search.py`（手动脚本）。
+- [修复] GitHub Actions `daily_analysis.yml` 未注入 `REPORT_LANGUAGE` 环境变量，导致用户在 Secrets/Variables 中配置后不生效（fixes #1013）
+- [修复] `GET /api/v1/analysis/status/{task_id}` 从数据库回填已完成任务时缺少 `current_price` / `change_pct`，导致首页报告股票名旁不显示实时价格（fixes #983）
 
 ## [3.12.0] - 2026-04-01
 
