@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - [修复] `StockAnalysisPipeline` 搜索服务与社交舆情服务改为可选降级初始化：任一服务初始化异常时记录 warning 并以禁用状态继续运行，避免外部依赖抖动阻塞主分析链路与 SSE 进度回调。
 - [文档] DEPLOY.md 和 deploy-webui-cloud.md 新增"UI 元素异常变大/布局错乱"排查步骤（重建 Docker 镜像或手动执行 npm run build）
 - [文档] 补充飞书 Webhook 配置说明：强调 `FEISHU_WEBHOOK_URL` 是群通知必填项、`FEISHU_WEBHOOK_SECRET` 与飞书机器人「签名校验」必须两端同时启用或同时关闭、`FEISHU_APP_SECRET` 仅用于应用/Stream Bot 模式不可替代 Webhook；同步完善英文指南并在 `.env.example` 为相关配置项补充内联说明注释
+- [修复] 桌面端版本展示改为统一读取 `apps/dsa-desktop/package.json`：移除 preload 中硬编码的 `0.1.0`，并在设置页展示真实桌面端版本，避免开发态与打包态长期显示错误版本号。
 
 - [新功能] 集成 Longbridge OpenAPI 作为美股/港股可选数据源；配置 `LONGBRIDGE_*` 后优先使用长桥获取日线与实时行情，YFinance / AkShare 兜底；未配置时行为与此前一致。长桥联调请使用 `tests/longbridge_live_smoke.py`（手动脚本，不参与 pytest 收集）。
 - [文档] 澄清 README（中/英/繁）中长桥「首选 / 兜底 / 未配置不调用」的边界；`docs/README_EN.md` / `docs/README_CHT.md` 顶部导航与完整指南链接改为 `./` 相对路径，避免在文档子目录下解析错误；`LONGBRIDGE_PRINT_QUOTE_PACKAGES` 与代码及 `.env.example` 对齐为未设置时默认关闭。
@@ -44,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - [新功能] 集成 Anspire Search 作为可选语义搜索后端; 配置 `ANSPIRE_*` 可使用Anspire Search获取实时行情及新闻资讯，未配置时行为与此前一致。Anspire Search请使用 `tests/test_anspire_search.py`（手动脚本）。
 - [修复] GitHub Actions `daily_analysis.yml` 未注入 `REPORT_LANGUAGE` 环境变量，导致用户在 Secrets/Variables 中配置后不生效（fixes #1013）
 - [修复] `GET /api/v1/analysis/status/{task_id}` 从数据库回填已完成任务时缺少 `current_price` / `change_pct`，导致首页报告股票名旁不显示实时价格（fixes #983）
+- [修复] 修复非交易日（周末/节假日）筹码分布与板块排行返回倒数第二个交易日数据的问题现在正常返回最近交易日数据（fix #1009）
 
 ## [3.12.0] - 2026-04-01
 
