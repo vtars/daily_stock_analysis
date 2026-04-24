@@ -3,6 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "exports": {
+    "./pages/HomePage": "./src/pages/HomePage.tsx",
+    "./pages/ChatPage": "./src/pages/ChatPage.tsx",
+    "./pages/PortfolioPage": "./src/pages/PortfolioPage.tsx",
+    "./pages/BacktestPage": "./src/pages/BacktestPage.tsx",
+    "./pages/SettingsPage": "./src/pages/SettingsPage.tsx",
+    "./pages/LoginPage": "./src/pages/LoginPage.tsx",
+    "./pages/NotFoundPage": "./src/pages/NotFoundPage.tsx",
+    "./contexts/AuthContext": "./src/contexts/AuthContext.tsx",
+    "./components/common": "./src/components/common/index.ts",
+    "./styles": "./src/index.css",
+    "./styles/app": "./src/App.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
