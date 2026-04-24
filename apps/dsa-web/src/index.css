@@ -2,18 +2,16 @@
 @config "../tailwind.config.js";
 /* Tailwind v4 strategy: keep theme extensions in tailwind.config.js via @config until a dedicated @theme/@utility migration. */
 
-/* =========================================
-   1. THEME VARIABLES (Base/Classic)
-   ========================================= */
+/* === V9.8 Dark OLED Luxury — sync with packages/ui tokens.css === */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
 :root {
-  /* Typography */
-  font-family:
-    "Inter",
-    "SF Pro Display",
-    "Segoe UI",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  --font-display: "Clash Display", "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Satoshi", "Clash Display", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, ui-monospace, monospace;
+
+  font-family: var(--font-body);
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
@@ -302,29 +300,30 @@
 }
 
 .dark {
-  --background: 228 35% 7%;
-  --foreground: 210 33% 98%;
-  --card: 230 24% 10%;
-  --card-foreground: 210 33% 98%;
-  --popover: 230 24% 10%;
-  --popover-foreground: 210 33% 98%;
-  --primary: 190 100% 50%;
-  --primary-foreground: 228 35% 8%;
-  --secondary: 231 19% 15%;
-  --secondary-foreground: 210 33% 94%;
-  --muted: 230 18% 14%;
-  --muted-foreground: 228 13% 66%;
-  --accent: 231 18% 16%;
-  --accent-foreground: 210 33% 98%;
-  --destructive: 349 100% 63%;
-  --destructive-foreground: 210 33% 98%;
-  --border: 226 19% 20%;
-  --input: 226 19% 20%;
-  --ring: 190 100% 50%;
-  --elevated: 230 22% 12%;
-  --hover: 231 20% 16%;
-  --secondary-text: 228 16% 72%;
-  --muted-text: 228 10% 48%;
+  /* === V9.8 OLED Luxury (sync with packages/ui) === */
+  --background: 240 12% 4%;
+  --foreground: 0 0% 96%;
+  --card: 240 10% 7%;
+  --card-foreground: 0 0% 96%;
+  --popover: 240 12% 6%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 175 95% 55%;
+  --primary-foreground: 240 14% 5%;
+  --secondary: 240 6% 14%;
+  --secondary-foreground: 0 0% 92%;
+  --muted: 240 6% 11%;
+  --muted-foreground: 240 5% 62%;
+  --accent: 240 6% 16%;
+  --accent-foreground: 0 0% 96%;
+  --destructive: 0 85% 62%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 6% 16%;
+  --input: 240 6% 16%;
+  --ring: 175 95% 55%;
+  --elevated: 240 8% 10%;
+  --hover: 240 6% 14%;
+  --secondary-text: 0 0% 82%;
+  --muted-text: 240 5% 56%;
 
   --color-cyan: hsl(var(--primary));
   --color-cyan-dim: hsl(var(--primary) / 0.8);
